@@ -92,12 +92,15 @@ call plug#end()
 " 4. Plugins Configuration & Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"""""""" Telescope configuration
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+""""""""
 
+"""""""" Coc.nvim configuration
 " Have CoC show documentation if available
 nnoremap <silent> K :call ShowDocumentation()<CR>
 function! ShowDocumentation()
@@ -114,6 +117,7 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
 
 " Highlight the symbol and its references when holding the cursor
 autocmd CursorHold * silent call CocActionAsync('highlight')
+""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 5. Colors and Themes
