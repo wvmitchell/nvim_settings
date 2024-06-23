@@ -59,6 +59,9 @@ nmap nn :set invnumber<CR>
 "Toggle relative line numbers
 nmap rn :set invrelativenumber<CR>
 
+" Disable highlight when <leader><leader> is pressed
+map <silent> <leader><leader> :noh<cr>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 2. Movement
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -104,6 +107,13 @@ function! ShowDocumentation()
     call feedkeys('K', 'in')
   endif
 endfunction
+
+" Make <CR> accept completion in coc.nvim
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Highlight the symbol and its references when holding the cursor
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 5. Colors and Themes
