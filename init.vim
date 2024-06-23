@@ -21,6 +21,10 @@ let mapleader=" "
 " Set line numbers by default
 set number
 
+" Having longer updatetime leads to noticeable
+" delays and poor user experience
+set updatetime=300
+
 " Set up the tab size and indentation
 set tabstop=4 softtabstop=4
 set shiftwidth=4
