@@ -18,8 +18,8 @@
 " Map leader to space
 let mapleader=" "
 
-" Set line numbers by default
-set number
+" Set relative line numbers by default
+set relativenumber
 
 " Having longer updatetime leads to noticeable
 " delays and poor user experience
