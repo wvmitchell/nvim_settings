@@ -81,8 +81,11 @@ call plug#begin()
     Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-    " Plugins for LSP
+    " Plugin for CoC
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+    " Plugin for ALE
+    Plug 'dense-analysis/ale'
 
     " Themes
     Plug 'ellisonleao/gruvbox.nvim'
@@ -117,6 +120,18 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
 
 " Highlight the symbol and its references when holding the cursor
 autocmd CursorHold * silent call CocActionAsync('highlight')
+""""""""
+
+"""""""" ALE configuration
+let g:ale_fixers = {
+      \ 'javascript': ['prettier'],
+      \ 'typescript': ['prettier'],
+      \ 'javascriptreact': ['prettier'],
+      \ 'typescriptreact': ['prettier'],
+      \ 'ruby': ['syntax_tree', 'rubocop'],
+      \ }
+
+let g:ale_fix_on_save = 1
 """"""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
