@@ -28,6 +28,7 @@ set updatetime=300
 " Set up the tab size and indentation
 set tabstop=4 softtabstop=4
 set shiftwidth=4
+set smarttab
 set expandtab
 set smartindent
 
@@ -41,6 +42,10 @@ set scrolloff=8
 nnoremap <leader>e :Ex<cr>
 nnoremap <leader>ve :Vex<cr>
 nnoremap <leader>se :Sex<cr>
+
+" New Views
+nnoremap <leader>sv :vsp<cr>
+nnoremap <leader>sh :sp<cr>
 
 " Save on blur
 autocmd BufLeave,FocusLost * silent! wall
