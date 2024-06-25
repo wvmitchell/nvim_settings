@@ -32,17 +32,24 @@ set expandtab
 set smartindent
 
 " Set command line height to bottom
-set cmdheight=0
+set cmdheight=1
 
 " Set scroll offset
 set scrolloff=8
 
 " Explore view mappings
 nnoremap <leader>e :Ex<cr>
-nnoremap <leader>pv :Vex<cr>
+nnoremap <leader>ve :Vex<cr>
+nnoremap <leader>se :Sex<cr>
+
+" Save on blur
+autocmd BufLeave,FocusLost * silent! wall
 
 " Fast saving
 nnoremap <leader>w <cmd>w<CR>
+
+" Fast quitting
+nnoremap <leader>q <cmd>q<CR>
 
 " Fast sourcing of the init.vim file
 nnoremap <leader><CR> :so ~/.config/nvim/init.vim<CR>
@@ -72,6 +79,12 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" Resizing splits
+nmap <Right> <C-w>>
+nmap <Left> <C-w><
+nmap <Up> <C-w>-
+nmap <Down> <C-w>+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 3. Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -81,6 +94,9 @@ call plug#begin()
     Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
+    " Plugin for Git integration
+    Plug 'tpope/vim-fugitive'
+
     " Plugin for CoC
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -89,6 +105,13 @@ call plug#begin()
 
     " Themes
     Plug 'ellisonleao/gruvbox.nvim'
+
+    " Status line
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+
+    " Syntax highlighting
+    Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -134,6 +157,10 @@ let g:ale_fixers = {
 let g:ale_fix_on_save = 1
 """"""""
 
+"""""""" Airline Configuration
+let g:airline_theme='base16_gruvbox_dark_hard' 
+""""""""
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 5. Colors and Themes
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -146,7 +173,9 @@ nnoremap <leader>t :call ToggleBackground()<CR>
 function! ToggleBackground()
   if &background == "dark"
     set background=light
+    execute 'AirlineTheme base16_gruvbox_light_hard'
   else
     set background=dark
+    execute 'AirlineTheme base16_gruvbox_dark_hard'
   endif
 endfunction
