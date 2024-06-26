@@ -74,6 +74,9 @@ nmap rn :set invrelativenumber<CR>
 " Disable highlight when <leader><leader> is pressed
 map <silent> <leader><leader> :noh<cr>
 
+" Ignore case in commands & searches
+set ignorecase
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 2. Movement
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -157,6 +160,11 @@ let g:ale_fixers = {
       \ 'javascriptreact': ['prettier'],
       \ 'typescriptreact': ['prettier'],
       \ 'ruby': ['syntax_tree', 'rubocop'],
+      \ 'go': ['gofmt', 'gopls'],
+      \ }
+
+let g:ale_linters = {
+      \ 'go': ['gofmt', 'golangci-lint', 'gopls', 'govet', 'revive'],
       \ }
 
 let g:ale_fix_on_save = 1
