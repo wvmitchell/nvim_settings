@@ -1,4 +1,4 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""
 "
 " Sections:
 "
@@ -76,6 +76,21 @@ map <silent> <leader><leader> :noh<cr>
 
 " Ignore case in commands & searches
 set ignorecase
+
+" Enable relative line numbers in netrw
+augroup netrw_settings
+  autocmd!
+  autocmd FileType netrw setlocal relativenumber
+augroup END
+
+" Yank the current line to the system clipboard
+nnoremap <Leader>y "+yy
+
+" Yank the selected text in visual mode to the system clipboard
+vnoremap <Leader>y "+y
+
+" Yank the entire buffer to the system clipboard
+nnoremap <Leader>Y gg"+yG
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 2. Movement
