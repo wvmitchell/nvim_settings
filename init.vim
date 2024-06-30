@@ -135,6 +135,9 @@ call plug#begin()
 
     " Syntax highlighting
     Plug 'sheerun/vim-polyglot'
+
+    " Window swapping
+     Plug 'wesQ3/vim-windowswap'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -148,6 +151,20 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 """"""""
+
+""""""""" Fugitive Configuration
+" Git command remappings
+" Git status
+nnoremap <leader>gs :G st<CR>
+
+" Git add (waiting for input)
+nnoremap <leader>ga :G add 
+
+" Git commit (waiting for message)
+nnoremap <leader>gc :G commit -m 
+
+" Git push
+nnoremap <leader>gp :G push<CR>
 
 """""""" Coc.nvim configuration
 " Have CoC show documentation if available
@@ -187,6 +204,21 @@ let g:ale_fix_on_save = 1
 
 """""""" Airline Configuration
 let g:airline_theme='base16_gruvbox_dark_hard' 
+""""""""
+
+"""""""" Window Swap Configuration
+let g:windowswap_map_keys = 0 "prevent default bindings
+nnoremap <silent> <leader>yw :call WindowSwap#MarkWindowSwap()<CR>
+nnoremap <silent> <leader>pw :call WindowSwap#DoWindowSwap()<CR>
+nnoremap <silent> <leader>ss :call WindowSwap#EasyWindowSwap()<CR>
+""""""""
+
+"""""""" Copilot Configuration
+" Copilot keybindings
+imap <C-j> <Plug>(copilot-next)
+imap <C-k> <Plug>(copilot-previous)
+imap <silent><script><expr> <C-l> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
 """"""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
