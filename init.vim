@@ -20,6 +20,7 @@ let mapleader=" "
 
 " Set relative line numbers by default
 set relativenumber
+set number
 
 " Having longer updatetime leads to noticeable
 " delays and poor user experience
@@ -37,6 +38,10 @@ set cmdheight=1
 
 " Set scroll offset
 set scrolloff=8
+
+" Code folding in indent mode, default to all folds open
+set foldmethod=indent
+set foldlevelstart=99
 
 " Explore view mappings
 nnoremap <leader>e :Ex<cr>
@@ -62,14 +67,17 @@ nnoremap <leader><CR> :so ~/.config/nvim/init.vim<CR>
 " Escape from insert mode
 imap jj <Esc>
 
+" Escape from visual mode
+vnoremap <leader>jj <Esc>
+
 " Previous buffer
 nmap ,, <C-^>
 
 "Toggle line numbers
-nmap nn :set invnumber<CR>
+nmap <leader>nn :set invnumber<CR>
 
 "Toggle relative line numbers
-nmap rn :set invrelativenumber<CR>
+nmap <leader>rn :set invrelativenumber<CR>
 
 " Disable highlight when <leader><leader> is pressed
 map <silent> <leader><leader> :noh<cr>
@@ -91,6 +99,10 @@ vnoremap <Leader>y "+y
 
 " Yank the entire buffer to the system clipboard
 nnoremap <Leader>Y gg"+yG
+
+" Moving lines up and down & auto-indenting
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 2. Movement
@@ -150,6 +162,7 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fw <cmd>Telescope grep_string<cr>
 """"""""
 
 """"""""" Fugitive Configuration
@@ -220,6 +233,8 @@ let g:ale_linters = {
       \ }
 
 let g:ale_fix_on_save = 1
+
+nnoremap <leader>d :ALEDetail<CR>
 """"""""
 
 """""""" Airline Configuration
