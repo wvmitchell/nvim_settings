@@ -39,9 +39,33 @@ set cmdheight=1
 " Set scroll offset
 set scrolloff=8
 
-" Code folding in indent mode, default to all folds open
-set foldmethod=indent
+" Set foldmethod to syntax
+set foldmethod=syntax
 set foldlevelstart=99
+
+" Function to close all folds only at top level
+function! FoldTopLevelFunctions()
+    " Start by opening all folds
+    normal! zR
+
+    " Close folds at the highest indent level
+    let l:current_line = 1
+    while l:current_line <= line('$')
+        " Check the indent level of the current line
+        let l:indent_level = indent(l:current_line)
+        if l:indent_level == 0
+            " Close fold at the current line
+            if foldlevel(l:current_line) > 0
+                execute l:current_line . ' foldclose'
+            endif
+        endif
+        let l:current_line += 1
+    endwhile
+endfunction
+
+" Create a custom command to call the function
+command! FoldTop call FoldTopLevelFunctions()
+nnoremap <leader>ft :FoldTop<CR>
 
 " Explore view mappings
 nnoremap <leader>e :Ex<cr>
