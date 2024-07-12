@@ -98,7 +98,7 @@ vnoremap <leader>jj <Esc>
 nmap ,, <C-^>
 
 "Toggle line numbers
-nmap <leader>nn :set invnumber<CR>
+nmap <leader>ln :set invnumber<CR>
 
 "Toggle relative line numbers
 nmap <leader>rn :set invrelativenumber<CR>
