@@ -153,6 +153,9 @@ call plug#begin()
     Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
+    " Plugin for Nerdtree
+    Plug 'scrooloose/nerdtree'
+
     " Plugin for Git integration
     Plug 'tpope/vim-fugitive'
 
@@ -188,6 +191,13 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fw <cmd>Telescope grep_string<cr>
 """"""""
+
+""""""""" Nerdtree configuration
+" Toggle NERDTree
+nnoremap <leader>n :NERDTreeToggle<CR>
+""""""""""
+
+""""""""" Treesitter configuration
 
 """"""""" Fugitive Configuration
 " Git command remappings
