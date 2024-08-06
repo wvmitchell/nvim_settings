@@ -174,6 +174,7 @@ call plug#begin()
 
     " Syntax highlighting
     Plug 'sheerun/vim-polyglot'
+    Plug 'prisma/vim-prisma'
 
     " Window swapping
      Plug 'wesQ3/vim-windowswap'
@@ -218,11 +219,14 @@ nnoremap <leader>gp :G push<CR>
 nnoremap <silent> K :call ShowDocumentation()<CR>
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
+    call CocAction('doHover')
   else
     call feedkeys('K', 'in')
   endif
 endfunction
+
+" Have CoC show diagnostics for errors with CocDiagnostics
+nnoremap <silent> <leader>cd <cmd>CocDiagnostics<CR>
 
 " Make <CR> accept completion in coc.nvim
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
@@ -253,6 +257,7 @@ endif
 
 " Go to definition
 nmap gd <Plug>(coc-definition)
+nmap gy <Plug>(coc-type-definition)
 """"""""
 
 """""""" ALE configuration
@@ -261,6 +266,7 @@ let g:ale_fixers = {
       \ 'typescript': ['prettier'],
       \ 'javascriptreact': ['prettier'],
       \ 'typescriptreact': ['prettier'],
+      \ 'mdx': ['prettier'],
       \ 'ruby': ['syntax_tree', 'rubocop'],
       \ 'go': ['gofmt', 'gopls'],
       \ }
