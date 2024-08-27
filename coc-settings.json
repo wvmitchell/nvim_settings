@@ -1,3 +1,4 @@
 {
   "diagnostic.enable": true,
+  "solargraph.diagnostics": true,
 }
