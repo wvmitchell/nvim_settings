@@ -156,6 +156,9 @@ call plug#begin()
     " Plugin for Nerdtree
     Plug 'scrooloose/nerdtree'
 
+    " Plugin for Commenting
+    Plug 'numToStr/Comment.nvim'
+
     " Plugin for Git integration
     Plug 'tpope/vim-fugitive'
 
@@ -199,6 +202,10 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 """"""""""
 
 """"""""" Treesitter configuration
+
+""""""""" Comment.nvim configuration
+lua require('Comment').setup()
+""""""""""
 
 """"""""" Fugitive Configuration
 " Git command remappings
@@ -268,6 +275,7 @@ let g:ale_fixers = {
       \ 'typescriptreact': ['prettier'],
       \ 'mdx': ['prettier'],
       \ 'ruby': ['syntax_tree', 'rubocop'],
+      \ 'eruby': ['htmlbeautifier'],
       \ 'go': ['gofmt', 'gopls'],
       \ }
 
