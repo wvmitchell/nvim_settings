@@ -161,6 +161,7 @@ call plug#begin()
 
     " Plugin for Git integration
     Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-rhubarb'
 
     " Plugin for CoC
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -181,6 +182,11 @@ call plug#begin()
 
     " Window swapping
      Plug 'wesQ3/vim-windowswap'
+
+    " CopilotChat
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'main' }
+
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -220,6 +226,9 @@ nnoremap <leader>gc :G commit -m
 
 " Git push
 nnoremap <leader>gp :G push<CR>
+""""""""""
+
+"""""""" Polyglot configuration
 
 """""""" Coc.nvim configuration
 " Have CoC show documentation if available
@@ -268,13 +277,22 @@ nmap gy <Plug>(coc-type-definition)
 """"""""
 
 """""""" ALE configuration
+""" Note: Did one of these stop working?
+""" ensure you have the linters/fixers installed
+""" and the executables in your PATH. Could be in the project
+""" or globally installed.
+""" If you've confrimed that, try running :ALEInfo
+""" and see if the linters/fixers are detected.
+""" If they're not, it could be a permissions issue. Ensure
+""" that the executables have the right permissions to be run by ALE.
+""" chmod +x <path to executable> should do the trick.
 let g:ale_fixers = {
-      \ 'javascript': ['prettier'],
-      \ 'typescript': ['prettier'],
-      \ 'javascriptreact': ['prettier'],
-      \ 'typescriptreact': ['prettier'],
+      \ 'javascript': ['prettier', 'eslint'],
+      \ 'typescript': ['prettier', 'eslint'],
+      \ 'javascriptreact': ['prettier', 'eslint'],
+      \ 'typescriptreact': ['prettier', 'eslint'],
       \ 'mdx': ['prettier'],
-      \ 'ruby': ['syntax_tree', 'rubocop'],
+      \ 'ruby': ['remove_trailing_lines', 'rubocop'],
       \ 'eruby': ['htmlbeautifier'],
       \ 'go': ['gofmt', 'gopls'],
       \ }
@@ -284,6 +302,8 @@ let g:ale_linters = {
       \ }
 
 let g:ale_fix_on_save = 1
+let g:ale_ruby_rubocop_executable = 'bundle'
+let g:ale_ruby_use_rbenv = 1
 
 nnoremap <leader>d :ALEDetail<CR>
 """"""""
@@ -305,6 +325,21 @@ imap <C-j> <Plug>(copilot-next)
 imap <C-k> <Plug>(copilot-previous)
 imap <silent><script><expr> <C-l> copilot#Accept("\<CR>")
 let g:copilot_no_tab_map = v:true
+""""""""
+
+"""""""" CopilotChat Configuration
+
+lua << EOF
+require("CopilotChat").setup {
+  debug = true, -- Enable debugging
+  -- See Configuration section for rest
+}
+EOF
+
+nnoremap <leader>ce <cmd>CopilotChatExplain<cr>
+nnoremap <leader>cc <cmd>CopilotChatReset<cr>
+nnoremap <leader>cf <cmd>CopilotChatFix<cr>
+nnoremap <leader>ct <cmd>CopilotChatTest<cr>
 """"""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

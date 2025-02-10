@@ -1,5 +1,6 @@
 {
   "diagnostic.enable": true,
+  "solargraph.diagnostics": true,
   "languageserver": {
     "ruby": {
       "command": "ruby-lsp",
@@ -25,7 +26,7 @@
           "signatureHelp": true,
           "typeHierarchy": true,
           "workspaceSymbol": true
-        },    
+        }    
       },
       "settings": {}
     }
