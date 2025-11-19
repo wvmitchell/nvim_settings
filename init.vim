@@ -230,6 +230,15 @@ nnoremap <leader>gc :G commit -m
 
 "" Git push
 nnoremap <leader>gp :G push<CR>
+
+"" Auto-refresh fugitive status window when files change
+augroup fugitive_auto_refresh
+  autocmd!
+  autocmd BufWritePost,FileChangedShellPost *
+    \ if len(filter(getwininfo(), 'v:val.bufnr == bufnr("fugitive://")')) |
+    \   silent! Git |
+    \ endif
+augroup END
 """""""""""
 "
 """"""""" Polyglot configuration
