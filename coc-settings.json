@@ -66,6 +66,12 @@
         }
       },
       "settings": {}
+    },
+    "biome": {
+      "command": "./node_modules/@biomejs/biome/bin/biome",
+      "args": ["lsp-proxy"],
+      "filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact", "json", "jsonc"],
+      "rootPatterns": ["biome.json", "biome.jsonc"]
     }
   }
 }

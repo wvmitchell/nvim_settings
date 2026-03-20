@@ -303,13 +303,46 @@ nmap gy <Plug>(coc-type-definition)
 "" Disable ALE LSP features (CoC handles this)
 let g:ale_disable_lsp = 1
 
+"" Fix-on-save via Lua autocmd (vimscript BufWritePost doesn't fire reliably)
+lua << EOF
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = "*",
+  callback = function()
+    local fixers = vim.g.ale_fixers or {}
+    if fixers[vim.bo.filetype] then
+      vim.cmd("ALEFix")
+    end
+  end,
+})
+EOF
+
+"" Custom biome fixer: uses stdin mode so temp file location doesn't matter
+function! BiomeFix(buffer) abort
+    let l:executable = ale#handlers#biome#GetExecutable(a:buffer)
+    return {
+    \   'command': ale#Escape(l:executable)
+    \       . ' check --fix --stdin-file-path=%s',
+    \}
+endfunction
+
+"" Custom rubocop fixer: drops --force-exclusion so .conductor paths aren't skipped
+function! RubocopFixNoExclusion(buffer) abort
+    let l:executable = ale#Var(a:buffer, 'ruby_rubocop_executable')
+    let l:options = ale#Var(a:buffer, 'ruby_rubocop_options')
+    return {
+    \   'command': ale#ruby#EscapeExecutable(l:executable, 'rubocop')
+    \       . (!empty(l:options) ? ' ' . l:options : '')
+    \       . ' --auto-correct --stdin %s',
+    \   'process_with': 'ale#fixers#rubocop#PostProcess'
+    \}
+endfunction
+
 let g:ale_fixers = {
-      \ 'javascript': ['prettier', 'eslint'],
-      \ 'typescript': ['prettier', 'eslint'],
-      \ 'javascriptreact': ['prettier', 'eslint'],
-      \ 'typescriptreact': ['prettier', 'eslint'],
-      \ 'mdx': ['prettier'],
-      \ 'ruby': ['remove_trailing_lines', 'rubocop'],
+      \ 'javascript': [function('BiomeFix')],
+      \ 'typescript': [function('BiomeFix')],
+      \ 'javascriptreact': [function('BiomeFix')],
+      \ 'typescriptreact': [function('BiomeFix')],
+      \ 'ruby': ['remove_trailing_lines', function('RubocopFixNoExclusion')],
       \ 'eruby': ['htmlbeautifier'],
       \ 'go': ['gofmt', 'gopls'],
       \ }
@@ -318,7 +351,6 @@ let g:ale_linters = {
       \ 'go': ['gofmt', 'golangci-lint', 'gopls', 'govet', 'revive'],
       \ }
 
-let g:ale_fix_on_save = 1
 let g:ale_ruby_rubocop_executable = 'bundle'
 let g:ale_ruby_use_rbenv = 1
 
