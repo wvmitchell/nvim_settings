@@ -186,10 +186,6 @@ call plug#begin()
 
     " Window swapping
     Plug 'wesQ3/vim-windowswap'
-
-    " GitHub Copilot
-    Plug 'github/copilot.vim'
-
 call plug#end()
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -218,6 +214,10 @@ lua require('Comment').setup()
 """""""""""
 
 """""""""" Fugitive Configuration
+"" Open :G fugitive panel in a vertical split
+cnoreabbrev G vertical G
+autocmd FileType fugitive exec 'vertical resize ' . (&columns / 4)
+
 "" Git command remappings
 "" Git status
 nnoremap <leader>gs :G st<CR>
@@ -368,14 +368,6 @@ nnoremap <silent> <leader>pw :call WindowSwap#DoWindowSwap()<CR>
 nnoremap <silent> <leader>ss :call WindowSwap#EasyWindowSwap()<CR>
 """""""""
 
-""""""""" Copilot Configuration
-"" Copilot keybindings
-imap <C-j> <Plug>(copilot-next)
-imap <C-k> <Plug>(copilot-previous)
-imap <silent><script><expr> <C-l> copilot#Accept("\<CR>")
-let g:copilot_no_tab_map = v:true
-"""""""""
-"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" 5. Colors and Themes
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
